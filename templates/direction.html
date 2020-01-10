@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    {% set count_tour = tours|length %}
+    {% set min_price = tours|min(attribute="price") %}
+    {% set max_price = tours|max(attribute="price")  %}
+    {% set min_nights = tours|min(attribute="nights") %}
+    {% set max_nights = tours|max(attribute="nights") %}
+
+    {# в шаблон приходят отфильтрованные по направлению данные, поэтому смело берем направление из них #}
+    {% set direction_tour = departures[direction]  %}
+
+
+    <p>{{ tours.title }}</p>
+    <h1 class="display-5 mt-4">Летим  {{ direction_tour }} </h1>
+    <p class="mb-4">Найдено {{ count_tour }} туров, от {{ min_price.price }} до {{ max_price.price }} и от {{ min_nights.nights }} ночей до {{ max_nights.nights }} ночей</p>
+    <!-- HERO -->
+      <!-- CARDS -->
+        <div class="row mt-5">
+            {% for tour in tours %}
+                <div class="col-4">
+                    <div class="card mb-3" >
+                        <img src="{{ tour.picture }}" class="card-img-top img-fluid">
+                         <div class="card-body">
+                            <h5 class="card-title">{{ tour.title }}</h5>
+                             <p class="card-text">{{ tour.description|truncate(200) }}</p>
+                             <a href="/tours/{{ tour.url }}" class="btn btn-sm btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                 </div>
+              {% endfor %}
+        </div>
+
+{% endblock content %}

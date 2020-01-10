@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- HERO -->
+
+    <div class="jumbotron text-center mt-4">
+      <h1 class="display-4">Всякие туры</h1>
+      <p class="lead">{{ promo.subtitle }}</p>
+      <p class="mt-5 w-50 mx-auto">{{ promo.description }}</p>
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="row mt-5">
+        {% for tour in tours %}
+            {% if loop.index < 7 %}
+                <div class="col-4">
+                    <div class="card mb-3">
+                        <img src="{{ tour.picture }}" class="card-img-top img-fluid" height="200">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tour.title }}</h5>
+                            <p class="card-text">{{ tour.description|truncate(200) }}</p>
+                            <a href="/tours/{{ tour.url }}" class="btn btn-sm btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}
